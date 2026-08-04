@@ -1,0 +1,71 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+typedef struct {
+    char *data;
+    int length;
+} String;
+
+String createString(const char *text) {
+    String s;
+    s.length = strlen(text);
+    s.data = (char *)malloc(s.length + 1);
+    strcpy(s.data, text);
+    return s;
+}
+
+void display(String s) {
+    printf("%s\n", s.data);
+}
+
+int length(String s) {
+    return s.length;
+}
+
+String concatenate(String s1, String s2) {
+    String result;
+    result.length = s1.length + s2.length;
+    result.data = (char *)malloc(result.length + 1);
+
+    strcpy(result.data, s1.data);
+    strcat(result.data, s2.data);
+
+    return result;
+}
+
+int compare(String s1, String s2) {
+    return strcmp(s1.data, s2.data);
+}
+
+void destroy(String *s) {
+    free(s->data);
+    s->data = NULL;
+    s->length = 0;
+}
+
+int main() {
+    String s1 = createString("Hello ");
+    String s2 = createString("World");
+
+    printf("String 1: ");
+    display(s1);
+
+    printf("String 2: ");
+    display(s2);
+
+    String s3 = concatenate(s1, s2);
+
+    printf("Concatenated String: ");
+    display(s3);
+
+    printf("Length: %d\n", length(s3));
+
+    printf("Comparison: %d\n", compare(s1, s2));
+
+    destroy(&s1);
+    destroy(&s2);
+    destroy(&s3);
+
+    return 0;
+}
