@@ -26,12 +26,8 @@ void heapify(int a[], int n, int i)
 void heapSort(int a[], int n)
 {
     int i, temp;
-
-    // Build max heap
     for (i = n / 2 - 1; i >= 0; i--)
         heapify(a, n, i);
-
-    // Extract elements
     for (i = n - 1; i > 0; i--)
     {
         temp = a[0];
